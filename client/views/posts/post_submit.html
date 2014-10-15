@@ -3,7 +3,19 @@
     <form class="grid-block form-horizontal">
         <div class="control-group">
             <label class="control-label">{{i18n "Twitter url"}}</label>
-            <div class="controls"><input id="url" type="text" value="" /></div>
+            <div class="controls">
+                <table class="twitter-field">
+                    <tr>
+                        <td>
+                            https://twitter.com/
+                        </td>
+                        <td>
+                            <input id="url" type="text" value=""/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
         <div class="control-group">
             <label class="control-label">{{i18n "Name"}}</label>
@@ -54,7 +66,7 @@
             <label class="radio inline">
               <input id="status_approved" type="radio" value="2" name="status" checked /> {{i18n "Approved"}}
             </label>
-            <label class="radio inline">  
+            <label class="radio inline">
               <input id="status_rejected" type="radio" value="3" name="status"/> {{i18n "Rejected"}}
             </label>
           </div>

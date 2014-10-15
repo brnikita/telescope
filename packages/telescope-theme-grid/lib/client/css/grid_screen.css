@@ -1,0 +1,11 @@
+.twitter-field tr {
+    border: none;
+}
+
+.twitter-field td {
+    padding: 0;
+}
+
+.twitter-field td:first-child {
+    width: 120px;
+}
