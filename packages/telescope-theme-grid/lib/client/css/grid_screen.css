@@ -50,10 +50,25 @@
     float: right;
 }
 
+.grid-post .discuss-link .count {
+    font-size: 16px;
+}
+
+.grid-post .grid-post-title {
+    font-size: 16px;
+}
+
+.grid-post-thumbnail {
+    display: block;
+    overflow: hidden;
+    height: 200px;
+}
+
 .grid-post-content .grid-post-info {
     position: relative;
     padding-left: 42px;
     min-height: 40px;
+    margin-top: 5px;
 }
 
 .grid-post-content .upvote {

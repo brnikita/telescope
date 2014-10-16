@@ -1,16 +1,16 @@
 <template name="grid_post_item">
     <div class="grid-post">
         <div class="grid-post-content">
-            <div>
+            <a class="grid-post-thumbnail" href="/posts/{{_id}}">
                 <img src="{{thumbnail}}"/>
-            </div>
+            </a>
+
             <div class="clerfix grid-post-info">
                 {{> gridPostUpvote}}
-                <a href="{{url}}}">{{title}}</a>
+                <a class="grid-post-title" href="{{url}}">{{title}}</a>
                 <a class="discuss-link go-to-comments" href="/posts/{{_id}}">
                     <i class="icon-comment"></i>
                     <span class="count">{{commentsCount}}</span>
-                    <span class="action">{{i18n 'Discuss'}}</span>
                 </a>
             </div>
         </div>
