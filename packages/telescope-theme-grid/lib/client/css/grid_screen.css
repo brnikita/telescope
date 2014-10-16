@@ -21,6 +21,7 @@
 }
 
 .grid-post {
+    background: #fff;
     margin: 0px !important;
     float: left;
     width: 33.3%;
@@ -34,7 +35,7 @@
 
 .grid-post-content {
     min-height: 237px;
-    background-color: #EDEDED;
+    border: 1px solid #ccc;
     border-radius: 3px;
     -webkit-transition: background 0.1s ease;
     -moz-transition: background 0.1s ease;
@@ -64,10 +65,10 @@
     height: 42px;
     text-align: center;
     cursor: pointer;
-    background: #fff;
+    background: #EDECEB;
     padding: 0 1px;
     border-radius: 3px;
-    box-shadow: 0px 1px 0px 0px rgba(83,69,64,0.3),0px 1px 1px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 1px 0px 0px rgba(83, 69, 64, 0.3), 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
     -webkit-transition: background 0.1s ease;
     -moz-transition: background 0.1s ease;
     -ms-transition: background 0.1s ease;
