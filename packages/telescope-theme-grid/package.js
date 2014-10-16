@@ -12,6 +12,8 @@ Package.on_use(function (api) {
         'lib/client/css/grid_screen.css',
         'lib/client/templates/grid_posts_list.html',
         'lib/client/templates/grid_post_submit.html',
+        'lib/client/views/posts/grid_post_submit.js',
+        'lib/client/routes.js',
         'lib/client/grid.js'
     ], ['client']);
 

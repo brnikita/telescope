@@ -64,6 +64,7 @@ Template[getTemplate('post_submit')].events({
 
     var properties = {
       title: $('#title').val(),
+      body: instance.editor.exportFile(),
       sticky: $('#sticky').is(':checked'),
       userId: $('#postUser').val(),
       status: parseInt($('input[name=status]:checked').val())
@@ -153,31 +154,3 @@ Template[getTemplate('post_submit')].events({
   }
 
 });
-
-var DBFiles = new Meteor.Collection('dbfiles');
-if (Meteor.isClient) {
-    Template[getTemplate('post_submit')].images = function () {
-        return DBFiles.findOne({user: Meteor.userId()});
-    };
-
-    Template[getTemplate('post_submit')].events({
-        'submit form': function (event, template) {
-            event.preventDefault();
-            var file = template.find('#fileinput').files[0],
-                meteoruser = Meteor.userId(),
-                reader = new FileReader();
-
-            reader.onload = function (event) {
-                DBFiles.insert({src: event.target.result, user: meteoruser});
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-}
-if (Meteor.isServer) {
-    Meteor.methods({
-        'deleteImages': function () {
-            DBFiles.remove({});
-        }
-    })
-}
