@@ -24,7 +24,7 @@
             <div class="control-group">
                 <label class="control-label">{{i18n "Photo"}}</label>
                 <div class="controls">
-                    <img class="thumbnail" src="{{images.src}}"/>
+                    <img class="js-photo-thumbnail" src=""/>
                     <input id="fileinput" type="file"/>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             </div>
             {{/if}}
             <div class="form-actions">
-                <input type="submit" class="button" value="{{i18n 'Submit'}}" />
+                <input type="submit" class="button js-post-submit" value="{{i18n 'Submit'}}" />
             </div>
         </form>
     </div>

@@ -24,6 +24,10 @@ postSchemaObject = {
     type: String,
     optional: true
   },
+  thumbnail: {
+    type: String,
+    optional: true
+  },
   htmlBody: {
     type: String,
     optional: true

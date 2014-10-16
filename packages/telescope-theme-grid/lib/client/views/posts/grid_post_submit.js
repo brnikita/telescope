@@ -1,55 +1,98 @@
+function getThumbnail(imageData, width, height) {
+    var img = document.createElement("img"),
+        canvas = document.createElement('canvas'),
+        context = canvas.getContext('2d');
+
+    img.src = imageData;
+
+    var imgWidth = img.width,
+        imgHeight = img.height;
+
+    if (imgWidth > imgHeight) {
+        if (imgWidth > width) {
+            imgHeight *= width / imgWidth;
+            imgWidth = width;
+        }
+    } else {
+        if (imgHeight > height) {
+            imgWidth *= height / imgHeight;
+            imgHeight = height;
+        }
+    }
+
+    canvas.height = imgHeight;
+    canvas.width = imgWidth;
+    context.drawImage(img, 0, 0, width, height);
+    return canvas.toDataURL("image/png");
+}
+
 Template[getTemplate('grid_post_submit')].helpers({
-    categoriesEnabled: function(){
+    categoriesEnabled: function () {
         return Categories.find().count();
     },
-    categories: function(){
+    categories: function () {
         return Categories.find();
     },
-    users: function(){
+    users: function () {
         return Meteor.users.find({}, {sort: {'profile.name': 1}});
     },
-    userName: function(){
+    userName: function () {
         return getDisplayName(this);
     },
-    isSelected: function(user){
+    isSelected: function (user) {
         return user._id == Meteor.userId() ? "selected" : "";
     },
     showPostedAt: function () {
-        if(Session.get('currentPostStatus') == STATUS_APPROVED){
+        if (Session.get('currentPostStatus') == STATUS_APPROVED) {
             return 'visible'
-        }else{
+        } else {
             return 'hidden'
         }
     }
 });
 
-Template[getTemplate('grid_post_submit')].rendered = function(){
+Template[getTemplate('grid_post_submit')].rendered = function () {
     // run all post submit rendered callbacks
     var instance = this;
-    postSubmitRenderedCallbacks.forEach(function(callback) {
+    postSubmitRenderedCallbacks.forEach(function (callback) {
         callback(instance);
     });
 
     Session.set('currentPostStatus', STATUS_APPROVED);
     Session.set('selectedPostId', null);
-    if(!this.editor && $('#editor').exists())
-        this.editor= new EpicEditor(EpicEditorOptions).load();
+    if (!this.editor && $('#editor').exists())
+        this.editor = new EpicEditor(EpicEditorOptions).load();
 
     $('#postedAtDate').datepicker();
 };
 
 Template[getTemplate('grid_post_submit')].events({
-    'change input[name=status]': function (e, i) {
+    'change input[name=status]': function (e) {
         Session.set('currentPostStatus', e.currentTarget.value);
     },
-    'click input[type=submit]': function(e, instance){
+    'change input[type=file]': function () {
+        //file upload
+        var $target = $(event.target),
+            $postSubmit = $('.js-post-submit'),
+            file = $target[0].files[0],
+            reader = new FileReader();
+
+        $postSubmit.addClass('disabled');
+        reader.onload = function (event) {
+            var thumbnail = getThumbnail(event.target.result, 286, 400);
+            $('.js-photo-thumbnail').attr('src', thumbnail);
+            $postSubmit.removeClass('disabled');
+        };
+        reader.readAsDataURL(file);
+    },
+    'click input[type=submit]': function (e, instance) {
         e.preventDefault();
 
         $(e.target).addClass('disabled');
 
         // ------------------------------ Checks ------------------------------ //
 
-        if(!Meteor.user()){
+        if (!Meteor.user()) {
             throwError(i18n.t('You must be logged in.'));
             return false;
         }
@@ -60,14 +103,15 @@ Template[getTemplate('grid_post_submit')].events({
 
         var properties = {
             title: $('#title').val(),
-            url: $('#url').val(),
+            thumbnail: $('.js-photo-thumbnail').attr('src'),
             sticky: $('#sticky').is(':checked'),
             userId: $('#postUser').val(),
             status: parseInt($('input[name=status]:checked').val())
         };
 
-        // PostedAt
+        properties.url = 'https://twitter.com/' + $('#url').val();
 
+        // PostedAt
         var $postedAtDate = $('#postedAtDate');
         var $postedAtTime = $('#postedAtTime');
         var setPostedAt = false;
@@ -75,26 +119,26 @@ Template[getTemplate('grid_post_submit')].events({
         var postedAtDate = $postedAtDate.datepicker('getDate');
         var postedAtTime = $postedAtTime.val();
 
-        if ($postedAtDate.exists() && postedAtDate != "Invalid Date"){ // if custom date is set, use it
+        if ($postedAtDate.exists() && postedAtDate != "Invalid Date") { // if custom date is set, use it
             postedAt = postedAtDate;
             setPostedAt = true;
         }
 
-        if ($postedAtTime.exists() && postedAtTime.split(':').length==2){ // if custom time is set, use it
+        if ($postedAtTime.exists() && postedAtTime.split(':').length == 2) { // if custom time is set, use it
             var hours = postedAtTime.split(':')[0];
             var minutes = postedAtTime.split(':')[1];
             postedAt = moment(postedAt).hour(hours).minute(minutes).toDate();
             setPostedAt = true;
         }
 
-        if(setPostedAt) // if either custom date or time has been set, pass result to properties
+        if (setPostedAt) // if either custom date or time has been set, pass result to properties
             properties.postedAt = postedAt;
 
 
         // ------------------------------ Callbacks ------------------------------ //
 
         // run all post submit client callbacks on properties object successively
-        properties = postSubmitClientCallbacks.reduce(function(result, currentFunction) {
+        properties = postSubmitClientCallbacks.reduce(function (result, currentFunction) {
             return currentFunction(result);
         }, properties);
 
@@ -102,18 +146,18 @@ Template[getTemplate('grid_post_submit')].events({
 
         // ------------------------------ Insert ------------------------------ //
         if (properties) {
-            Meteor.call('post', properties, function(error, post) {
-                if(error){
+            Meteor.call('post', properties, function (error, post) {
+                if (error) {
                     throwError(error.reason);
                     clearSeenErrors();
                     $(e.target).removeClass('disabled');
-                    if(error.error == 603)
-                        Router.go('/posts/'+error.details);
-                }else{
+                    if (error.error == 603)
+                        Router.go('/posts/' + error.details);
+                } else {
                     trackEvent("new post", {'postId': post._id});
-                    if(post.status === STATUS_PENDING)
+                    if (post.status === STATUS_PENDING)
                         throwError('Thanks, your post is awaiting approval.');
-                    Router.go('/posts/'+post._id);
+                    Router.go('/posts/' + post._id);
                 }
             });
         } else {
@@ -123,31 +167,3 @@ Template[getTemplate('grid_post_submit')].events({
     }
 
 });
-
-var DBFiles = new Meteor.Collection('dbfiles');
-if (Meteor.isClient) {
-    Template[getTemplate('grid_post_submit')].images = function () {
-        return DBFiles.findOne({user: Meteor.userId()});
-    };
-
-    Template[getTemplate('grid_post_submit')].events({
-        'submit form': function (event, template) {
-            event.preventDefault();
-            var file = template.find('#fileinput').files[0],
-                meteoruser = Meteor.userId(),
-                reader = new FileReader();
-
-            reader.onload = function (event) {
-                DBFiles.insert({src: event.target.result, user: meteoruser});
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-}
-if (Meteor.isServer) {
-    Meteor.methods({
-        'deleteImages': function () {
-            DBFiles.remove({});
-        }
-    })
-}

@@ -1,0 +1,10 @@
+<template name="gridPostUpvote">
+    <div class="upvote">
+        {{#if upvoted}}
+        <span class="upvote-link voted"><i class="icon-check"></i></span>
+        {{else}}
+        <a class="upvote-link not-voted" href="#"><i class="icon-up"></i></a>
+        {{/if}}
+        <div class="vote-count"><span>{{rank}}</span></div>
+    </div>
+</template>

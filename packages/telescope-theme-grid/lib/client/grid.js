@@ -1,1 +1,1 @@
-templates["posts_list"] = 'grid_posts_list';
+templates["post_item"] = 'grid_post_item';
