@@ -8,7 +8,7 @@
             <div class="clerfix grid-post-info">
                 {{> gridPostUpvote}}
                 <a class="grid-post-title" href="{{url}}">{{title}}</a>
-                {{#if isNaturalIcon}}<a href="/posts/{{_id}}">N</a>{{/if}}
+                {{#if isNaturalIcon}}<a href="/posts/{{_id}}" class="grid-post-natural">N</a>{{/if}}
                 <a class="discuss-link go-to-comments" href="/posts/{{_id}}">
                     <i class="icon-comment"></i>
                     <span class="count">{{commentsCount}}</span>

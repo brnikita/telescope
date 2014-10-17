@@ -56,6 +56,7 @@
 
 .grid-post .grid-post-title {
     font-size: 20px;
+    vertical-align: middle;
 }
 
 .grid-post-thumbnail {
@@ -67,7 +68,7 @@
     background: #EDECEB;
 }
 
-.grid-post-thumbnail img{
+.grid-post-thumbnail img {
 }
 
 .grid-post-content .grid-post-info {
@@ -103,6 +104,17 @@
     overflow: hidden;
 }
 
-.form-horizontal.natural-questions-form .controls{
+.form-horizontal.natural-questions-form .controls {
     margin-left: 271px;
+}
+
+a.grid-post-natural {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #4D7FC0;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
 }

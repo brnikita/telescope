@@ -8,18 +8,7 @@ Template[getTemplate('comment_list')].helpers({
     },
     child_comments: function () {
         var post = this;
-        var comments = Comments.find({postId: post._id, parentCommentId: null}, {sort: {score: -1, postedAt: -1}});
-        console.log(comments);
-        return comments;
-    },
-    naturalQuestions: function () {
-        var postUser = Meteor.users.findOne(this.userId);
-        console.log(postUser.naturalQuestions);
-        return postUser.naturalQuestions;
-    },
-    isNaturalIcon: function(){
-        var postUser = Meteor.users.findOne(this.userId);
-        return postUser.isNaturalIcon;
+        return Comments.find({postId: post._id, parentCommentId: null}, {sort: {score: -1, postedAt: -1}});
     }
 });
 

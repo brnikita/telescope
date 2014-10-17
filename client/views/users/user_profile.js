@@ -105,14 +105,21 @@ Template[getTemplate('user_profile')].events({
         event.preventDefault();
 
         var $form = $(event.target),
-            questions = $form.serializeArray(),
-            currentUser = Meteor.user();
+            questions = $form.serializeArray();
 
-        Meteor.users.update(currentUser._id, {
-            $set: {
-                naturalQuestions: questions
-            }
+        _.each(questions, function(question){
+            var value = question.value,
+                userId = Meteor.user()._id,
+                userPosts = Posts.find({userId: userId});
+
+            userPosts.forEach(function (post) {
+                value = $.trim(value);
+                if (_.isString(value) && value.length > 0) {
+                    Meteor.call('comment', post._id, null, value);
+                }
+            });
         });
+
         throwError(i18n.t('Answers have been sent.'));
     }
 });
