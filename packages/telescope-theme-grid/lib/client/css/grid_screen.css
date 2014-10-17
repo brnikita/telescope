@@ -34,7 +34,7 @@
 
 .grid-post-content {
     min-height: 237px;
-    width: 300px;
+    width: 302px;
     border: 1px solid #ccc;
     border-radius: 3px;
     -webkit-transition: background 0.1s ease;
@@ -61,15 +61,13 @@
 .grid-post-thumbnail {
     overflow: hidden;
     height: 200px;
+    width: 280px;
+    display: block;
+    text-align: center;
     background: #EDECEB;
-    display: table-cell;
-    vertical-align: middle;
-    width: 300px;
 }
 
 .grid-post-thumbnail img{
-    display: block;
-    margin: 0 auto;
 }
 
 .grid-post-content .grid-post-info {
@@ -81,8 +79,8 @@
 
 .grid-post-content .upvote {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     margin-top: 3px;
     width: 30px;
     height: 42px;
@@ -97,4 +95,10 @@
     -ms-transition: background 0.1s ease;
     -o-transition: background 0.1s ease;
     transition: background 0.1s ease;
+}
+
+.post-submit_thumbnail {
+    display: inline-block;
+    max-height: 200px;
+    overflow: hidden;
 }

@@ -8,16 +8,13 @@ function getThumbnail(imageData, width, height) {
     var imgWidth = img.width,
         imgHeight = img.height;
 
-    if (imgWidth > imgHeight) {
-        if (imgWidth > width) {
-            imgHeight *= width / imgWidth;
-            imgWidth = width;
-        }
-    } else {
-        if (imgHeight > height) {
-            imgWidth *= height / imgHeight;
-            imgHeight = height;
-        }
+    if (imgWidth > width) {
+        imgHeight *= width / imgWidth;
+        imgWidth = width;
+    }
+    if (imgHeight > height) {
+        imgWidth *= height / imgHeight;
+        imgHeight = height;
     }
 
     canvas.height = imgHeight;
@@ -79,7 +76,7 @@ Template[getTemplate('grid_post_submit')].events({
 
         $postSubmit.addClass('disabled');
         reader.onload = function (event) {
-            var thumbnail = getThumbnail(event.target.result, 280, 200);
+            var thumbnail = getThumbnail(event.target.result, 280, 800);
             $('.js-photo-thumbnail').attr('src', thumbnail);
             $postSubmit.removeClass('disabled');
         };
