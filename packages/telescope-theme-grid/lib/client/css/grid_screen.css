@@ -22,9 +22,8 @@
 
 .grid-post {
     background: #fff;
-    margin: 0px !important;
+    margin: 0 !important;
     float: left;
-    width: 33.3%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -35,6 +34,7 @@
 
 .grid-post-content {
     min-height: 237px;
+    width: 300px;
     border: 1px solid #ccc;
     border-radius: 3px;
     -webkit-transition: background 0.1s ease;
@@ -55,13 +55,21 @@
 }
 
 .grid-post .grid-post-title {
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .grid-post-thumbnail {
-    display: block;
     overflow: hidden;
     height: 200px;
+    background: #EDECEB;
+    display: table-cell;
+    vertical-align: middle;
+    width: 300px;
+}
+
+.grid-post-thumbnail img{
+    display: block;
+    margin: 0 auto;
 }
 
 .grid-post-content .grid-post-info {

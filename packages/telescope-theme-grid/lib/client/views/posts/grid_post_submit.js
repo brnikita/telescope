@@ -22,7 +22,7 @@ function getThumbnail(imageData, width, height) {
 
     canvas.height = imgHeight;
     canvas.width = imgWidth;
-    context.drawImage(img, 0, 0, width, height);
+    context.drawImage(img, 0, 0, imgWidth, imgHeight);
     return canvas.toDataURL("image/png");
 }
 
@@ -79,7 +79,7 @@ Template[getTemplate('grid_post_submit')].events({
 
         $postSubmit.addClass('disabled');
         reader.onload = function (event) {
-            var thumbnail = getThumbnail(event.target.result, 286, 400);
+            var thumbnail = getThumbnail(event.target.result, 280, 200);
             $('.js-photo-thumbnail').attr('src', thumbnail);
             $postSubmit.removeClass('disabled');
         };
