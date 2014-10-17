@@ -1,7 +1,14 @@
 <template name="comment_list">
-  <ul class="comments comment-list">
-    {{#each child_comments}}
-      {{> UI.dynamic template=comment_item}}
-    {{/each}}
-  </ul>
+    {{#if isNaturalIcon}}
+    <ul class="comments comment-list">
+        {{#each naturalQuestions}}
+        {{> UI.dynamic template=comment_item}}
+        {{/each}}
+    </ul>
+    {{/if}}
+    <ul class="comments comment-list">
+        {{#each child_comments}}
+        {{> UI.dynamic template=comment_item}}
+        {{/each}}
+    </ul>
 </template>

@@ -102,3 +102,7 @@
     max-height: 200px;
     overflow: hidden;
 }
+
+.form-horizontal.natural-questions-form .controls{
+    margin-left: 271px;
+}
