@@ -20,7 +20,7 @@ Template[getTemplate('user_natural_questions')].events({
             return;
         }
 
-        Meteor.call('comment', postId, null, comment, function (error) {
+        Meteor.call('comment', postId, null, comment, true, function (error) {
             if (error) {
                 throwError(error.reason);
             } else {

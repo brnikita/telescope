@@ -8,7 +8,11 @@ Template[getTemplate('comment_list')].helpers({
     },
     child_comments: function () {
         var post = this;
-        return Comments.find({postId: post._id, parentCommentId: null}, {sort: {score: -1, postedAt: -1}});
+        return Comments.find({postId: post._id, parentCommentId: null, isNaturalHairIcon: false}, {sort: {score: -1, postedAt: -1}});
+    },
+    natural_hair_comments: function () {
+        var post = this;
+        return Comments.find({postId: post._id, parentCommentId: null, isNaturalHairIcon: true}, {sort: {score: -1, postedAt: -1}});
     }
 });
 
