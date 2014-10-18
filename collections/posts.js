@@ -91,7 +91,12 @@ postSchemaObject = {
         optional: true
     },
     isNaturalIcon: {
-        type: Boolean
+        type: Boolean,
+        defaultValue: false
+    },
+    naturalQuestionsAnswered: {
+        type: Boolean,
+        defaultValue: false
     }
 };
 

@@ -73,6 +73,9 @@ Template[getTemplate('user_profile')].helpers({
     },
     hasMoreComments: function () {
         return Comments.find({userId: this._id}).count() > Session.get('commentsShown');
+    },
+    naturalPosts: function(){
+        return Posts.find({userId: this._id, isNaturalIcon: true, naturalQuestionsAnswered: false});
     }
 });
 
@@ -100,46 +103,5 @@ Template[getTemplate('user_profile')].events({
         e.preventDefault();
         var commentsShown = Session.get('commentsShown');
         Session.set('commentsShown', commentsShown + 10);
-    },
-    'submit .natural-questions-form': function (event) {
-        event.preventDefault();
-
-        var $form = $(event.target),
-            questions = $form.serializeArray(),
-            userId = Meteor.user()._id,
-            userPosts = Posts.find({userId: userId}),
-            comment = '';
-
-        _.each(questions, function (question) {
-            var value = question.value;
-
-            value = $.trim(value);
-            if (_.isString(value) && value.length > 0) {
-                comment += value + '<br/>';
-            }
-        });
-
-        if (comment === '') {
-            return;
-        }
-
-        userPosts.forEach(function (post) {
-            Meteor.call('comment', post._id, null, comment, function (error) {
-                if (error) {
-                    throwError(error.reason);
-                } else {
-                    throwError(i18n.t('Answers have been sent'));
-                }
-            });
-        });
-
-        Deps.afterFlush(function () {
-            var element = $('.grid > .error');
-            $('html, body').animate({
-                scrollTop: element.offset().top
-            });
-        });
-
-        $form.parent().css('display', 'none');
     }
 });

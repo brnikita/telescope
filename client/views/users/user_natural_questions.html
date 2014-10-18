@@ -1,0 +1,39 @@
+<template name="user_natural_questions">
+    {{#unless naturalQuestionsAnswered}}
+        <div class="user-profile-questions grid grid-module">
+            <h3>
+                <a href="/posts/{{_id}}">{{title}}</a>
+            </h3>
+
+            <p>
+                Please answer the pre-loaded questions that will be featured above all other comments.
+            </p>
+
+            <form class="form-horizontal natural-questions-form">
+                <div class="control-group">
+                    <label class="control-label post-form-time">{{i18n "When did you go natural and why?"}}</label>
+
+                    <div class="controls"><input id="natural-question-1" name="natural-question-1" type="text"/></div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label post-form-time">{{i18n "What is your hair care regimen?"}}</label>
+
+                    <div class="controls"><input id="natural-question-2" name="natural-question-2" type="text"/></div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label post-form-time">{{i18n "What can't your hair live without?"}}</label>
+
+                    <div class="controls"><input id="natural-question-3" name="natural-question-3" type="text"/></div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label post-form-time">{{i18n "What is your best hair care advice?"}}</label>
+
+                    <div class="controls"><input id="natural-question-4" name="natural-question-4" type="text"/></div>
+                </div>
+                <div class="form-actions">
+                    <input type="submit" class="button js-post-submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    {{/unless}}
+</template>
