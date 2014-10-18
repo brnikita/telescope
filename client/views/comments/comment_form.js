@@ -37,7 +37,6 @@ Template[getTemplate('comment_form')].events({
 
       Meteor.call('comment', post._id, null, content, function(error, newComment){
         if(error){
-          console.log(error);
           throwError(error.reason);
         }else{
           trackEvent("newComment", newComment);

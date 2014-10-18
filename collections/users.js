@@ -41,9 +41,6 @@ Schema.User = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
-    },
-    isNaturalIcon: {
-        type: Boolean
     }
 });
 

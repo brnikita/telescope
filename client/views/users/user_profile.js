@@ -105,21 +105,41 @@ Template[getTemplate('user_profile')].events({
         event.preventDefault();
 
         var $form = $(event.target),
-            questions = $form.serializeArray();
+            questions = $form.serializeArray(),
+            userId = Meteor.user()._id,
+            userPosts = Posts.find({userId: userId}),
+            comment = '';
 
-        _.each(questions, function(question){
-            var value = question.value,
-                userId = Meteor.user()._id,
-                userPosts = Posts.find({userId: userId});
+        _.each(questions, function (question) {
+            var value = question.value;
 
-            userPosts.forEach(function (post) {
-                value = $.trim(value);
-                if (_.isString(value) && value.length > 0) {
-                    Meteor.call('comment', post._id, null, value);
+            value = $.trim(value);
+            if (_.isString(value) && value.length > 0) {
+                comment += value + '<br/>';
+            }
+        });
+
+        if (comment === '') {
+            return;
+        }
+
+        userPosts.forEach(function (post) {
+            Meteor.call('comment', post._id, null, comment, function (error) {
+                if (error) {
+                    throwError(error.reason);
+                } else {
+                    throwError(i18n.t('Answers have been sent'));
                 }
             });
         });
 
-        throwError(i18n.t('Answers have been sent.'));
+        Deps.afterFlush(function () {
+            var element = $('.grid > .error');
+            $('html, body').animate({
+                scrollTop: element.offset().top
+            });
+        });
+
+        $form.parent().css('display', 'none');
     }
 });

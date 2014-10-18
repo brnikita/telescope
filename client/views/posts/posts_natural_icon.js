@@ -1,4 +1,4 @@
-Template[getTemplate('posts_list')].helpers({
+Template[getTemplate('posts_natural_icon')].helpers({
     post_item: function () {
         return getTemplate('post_item');
     },
@@ -20,6 +20,6 @@ Template[getTemplate('posts_list')].helpers({
     }
 });
 
-Template[getTemplate('posts_list')].created = function () {
+Template[getTemplate('posts_natural_icon')].created = function () {
     Session.set('listPopulatedAt', new Date());
 };

@@ -1,0 +1,21 @@
+<template name="post_item_natural">
+    <div class="grid-post">
+        <div class="grid-post-content">
+            <a class="grid-post-thumbnail" href="/posts/{{_id}}">
+                <img src="{{thumbnail}}"/>
+            </a>
+
+            <div class="clerfix grid-post-info">
+                <a class="grid-post-title" href="{{url}}">{{title}}111</a>
+                {{#if isNaturalIcon}}<a href="/posts/{{_id}}" class="grid-post-natural">N</a>{{/if}}
+                <form>
+                    {{#if isNaturalIcon}}
+                    <input type="submit" class="button" value="{{i18n 'Remove natural icon'}}"/>
+                    {{else}}
+                    <input type="submit" class="button" value="{{i18n 'Add natural icon'}}"/>
+                    {{/if}}
+                </form>
+            </div>
+        </div>
+    </div>
+</template>

@@ -42,22 +42,6 @@ Template[getTemplate('user_item')].events({
             }
         });
     },
-    'click .add-natural': function (e, instance) {
-        e.preventDefault();
-        Meteor.users.update(instance.data._id, {
-            $set: {
-                isNaturalIcon: true
-            }
-        });
-    },
-    'click .remove-natural': function (e, instance) {
-        e.preventDefault();
-        Meteor.users.update(instance.data._id, {
-            $set: {
-                isNaturalIcon: false
-            }
-        });
-    },
     'click .admin-link': function (e, instance) {
         e.preventDefault();
         updateAdmin(instance.data._id, true);
