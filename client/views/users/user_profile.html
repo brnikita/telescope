@@ -54,9 +54,11 @@
                 {{/if}}
             {{/if}}
         </div>
-        {{#each naturalPosts}}
-            {{> user_natural_questions}}
-        {{/each}}
+        {{#if canEditProfile}}
+            {{#each naturalPosts}}
+                {{> user_natural_questions}}
+            {{/each}}
+        {{/if}}
         <div class="user-profile-posts grid grid-module">
             <h3>{{i18n "Posts"}}</h3>
             <table>
