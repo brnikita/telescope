@@ -1,3 +1,7 @@
+.hide {
+    display: none;
+}
+
 .clearfix:after {
     content: "";
     display: table;
@@ -60,15 +64,12 @@
 }
 
 .grid-post-thumbnail {
-    overflow: hidden;
-    height: 200px;
-    width: 280px;
-    display: block;
-    text-align: center;
     background: #EDECEB;
 }
 
 .grid-post-thumbnail img {
+    height: 200px;
+    width: 280px;
 }
 
 .grid-post-content .grid-post-info {
@@ -100,8 +101,11 @@
 
 .post-submit_thumbnail {
     display: inline-block;
-    max-height: 200px;
-    overflow: hidden;
+}
+
+.post-submit_thumbnail img {
+    height: 200px;
+    width: 280px;
 }
 
 .form-horizontal.natural-questions-form .controls {

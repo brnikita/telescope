@@ -4,22 +4,9 @@ function getThumbnail(imageData, width, height) {
         context = canvas.getContext('2d');
 
     img.src = imageData;
-
-    var imgWidth = img.width,
-        imgHeight = img.height;
-
-    if (imgWidth > width) {
-        imgHeight *= width / imgWidth;
-        imgWidth = width;
-    }
-    if (imgHeight > height) {
-        imgWidth *= height / imgHeight;
-        imgHeight = height;
-    }
-
-    canvas.height = imgHeight;
-    canvas.width = imgWidth;
-    context.drawImage(img, 0, 0, imgWidth, imgHeight);
+    canvas.height = height;
+    canvas.width = width;
+    context.drawImage(img, 0, 0, width, height);
     return canvas.toDataURL("image/png");
 }
 
@@ -67,17 +54,18 @@ Template[getTemplate('post_submit')].events({
     'change input[name=status]': function (e) {
         Session.set('currentPostStatus', e.currentTarget.value);
     },
-    'change input[type=file]': function () {
+    'change input[type=file]': function (event) {
         //file upload
         var $target = $(event.target),
             $postSubmit = $('.js-post-submit'),
             file = $target[0].files[0],
             reader = new FileReader();
-
         $postSubmit.addClass('disabled');
         reader.onload = function (event) {
-            var thumbnail = getThumbnail(event.target.result, 280, 800);
-            $('.js-photo-thumbnail').attr('src', thumbnail);
+            var $thumbnail = $('.js-photo-thumbnail'),
+                thumbnail = getThumbnail(event.target.result, 280, 200);
+            $thumbnail.attr('src', thumbnail);
+            $thumbnail.removeClass('hide');
             $postSubmit.removeClass('disabled');
         };
         reader.readAsDataURL(file);
