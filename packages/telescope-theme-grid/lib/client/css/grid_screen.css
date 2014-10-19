@@ -65,6 +65,9 @@
 
 .grid-post-thumbnail {
     background: #EDECEB;
+    height: 200px;
+    width: 280px;
+    display: block;
 }
 
 .grid-post-thumbnail img {
