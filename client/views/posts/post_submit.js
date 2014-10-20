@@ -94,7 +94,12 @@ Template[getTemplate('post_submit')].events({
             status: parseInt($('input[name=status]:checked').val())
         };
 
-        properties.url = 'https://twitter.com/' + $('#url').val();
+        var twitterId = $('#url').val();
+        twitterId = $.trim(twitterId);
+
+        if (_.isString(twitterId) && twitterId.length) {
+            properties.url = 'https://twitter.com/' + twitterId;
+        }
 
         // PostedAt
         var $postedAtDate = $('#postedAtDate');

@@ -7,7 +7,11 @@
 
             <div class="clerfix grid-post-info">
                 {{> postUpvote}}
+                {{#if url}}
                 <a class="grid-post-title" href="{{url}}">{{title}}</a>
+                {{else}}
+                <span class="grid-post-title">{{title}}</span>
+                {{/if}}
                 {{#if isNaturalIcon}}<a href="/posts/{{_id}}" class="grid-post-natural">N</a>{{/if}}
                 <a class="discuss-link go-to-comments" href="/posts/{{_id}}">
                     <i class="icon-comment"></i>

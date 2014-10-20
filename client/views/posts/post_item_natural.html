@@ -6,7 +6,11 @@
             </a>
 
             <div class="clerfix grid-post-info">
-                <a class="grid-post-title" href="{{url}}">{{title}}111</a>
+                {{#if url}}
+                <a class="grid-post-title" href="{{url}}">{{title}}</a>
+                {{else}}
+                <span class="grid-post-title">{{title}}</span>
+                {{/if}}
                 {{#if isNaturalIcon}}<a href="/posts/{{_id}}" class="grid-post-natural">N</a>{{/if}}
                 <form>
                     {{#if isNaturalIcon}}
